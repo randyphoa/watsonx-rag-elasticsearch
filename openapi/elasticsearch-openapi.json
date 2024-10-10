@@ -1,0 +1,131 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Elasticsearch API",
+		"description": "Elasticsearch API",
+		"version": "1.0"
+	},
+	"servers": [
+		{
+			"url": "https://{elastic_url}",
+			"description": "Elasticsearch URL",
+			"variables": {
+				"elastic_url": {
+					"default": "abc.databases.appdomain.cloud:31682"
+				}
+			}
+		}
+	],
+	"paths": {
+		"/{index_name}/_search": {
+			"post": {
+				"parameters": [
+					{
+						"name": "index_name",
+						"in": "path",
+						"description": "Name of the index",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"security": [
+					{
+						"basicAuth": []
+					}
+				],
+				"description": "Search request",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"_source": {
+										"type": "boolean",
+										"default": false
+									},
+									"fields": {
+										"type": "array"
+									},
+									"query": {
+										"type": "object"
+									},
+									"knn": {
+										"type": "object"
+									},
+									"rank": {
+										"type": "object"
+									},
+									"size": {
+										"type": "object"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Search response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"title": "Elasticsearch Response",
+									"type": "object",
+									"properties": {
+										"hits": {
+											"type": "object",
+											"properties": {
+												"hits": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"_id": {
+																"type": "string"
+															},
+															"_score": {
+																"type": "number"
+															},
+															"_index": {
+																"type": "string"
+															},
+															"_source": {
+																"type": "object",
+																"properties": {
+																	"source": {
+																		"type": "string"
+																	},
+																	"text": {
+																		"type": "string"
+																	},
+																	"embedding": {
+																		"type": "string"
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"basicAuth": {
+				"type": "http",
+				"scheme": "basic"
+			}
+		}
+	}
+}
