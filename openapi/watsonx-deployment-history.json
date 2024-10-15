@@ -149,15 +149,7 @@
 						"type": "object",
 						"properties": {
 							"prompt_variables": {
-								"type": "object",
-								"properties": {
-									"context": {
-										"type": "string"
-									},
-									"history": {
-										"type": "string"
-									}
-								}
+								"type": "object"
 							}
 						}
 					}
